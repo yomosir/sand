@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zheng.sand.label.dao.LabelMapper">
+  <resultMap id="BaseResultMap" type="org.zheng.sand.label.entity.Label">
+    <id column="lid" jdbcType="VARCHAR" property="lid" />
+    <result column="la_name" jdbcType="VARCHAR" property="laName" />
+    <result column="label_detail" jdbcType="VARCHAR" property="labelDetail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    lid, la_name, label_detail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from label
+    where lid = #{lid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from label
+    where lid = #{lid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.zheng.sand.label.entity.Label">
+    insert into label (lid, la_name, label_detail
+      )
+    values (#{lid,jdbcType=VARCHAR}, #{laName,jdbcType=VARCHAR}, #{labelDetail,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.zheng.sand.label.entity.Label">
+    insert into label
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lid != null">
+        lid,
+      </if>
+      <if test="laName != null">
+        la_name,
+      </if>
+      <if test="labelDetail != null">
+        label_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lid != null">
+        #{lid,jdbcType=VARCHAR},
+      </if>
+      <if test="laName != null">
+        #{laName,jdbcType=VARCHAR},
+      </if>
+      <if test="labelDetail != null">
+        #{labelDetail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zheng.sand.label.entity.Label">
+    update label
+    <set>
+      <if test="laName != null">
+        la_name = #{laName,jdbcType=VARCHAR},
+      </if>
+      <if test="labelDetail != null">
+        label_detail = #{labelDetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lid = #{lid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zheng.sand.label.entity.Label">
+    update label
+    set la_name = #{laName,jdbcType=VARCHAR},
+      label_detail = #{labelDetail,jdbcType=VARCHAR}
+    where lid = #{lid,jdbcType=VARCHAR}
+  </update>
+</mapper>

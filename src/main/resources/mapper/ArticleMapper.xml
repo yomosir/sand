@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zheng.sand.article.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="org.zheng.sand.article.entity.Article">
+    <id column="aid" jdbcType="VARCHAR" property="aid" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="page_view" jdbcType="INTEGER" property="pageView" />
+    <result column="praise_point" jdbcType="INTEGER" property="praisePoint" />
+    <result column="comment_num" jdbcType="INTEGER" property="commentNum" />
+    <result column="sub_time" jdbcType="TIMESTAMP" property="subTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.zheng.sand.article.entity.Article">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    aid, user_id, title, page_view, praise_point, comment_num, sub_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    where aid = #{aid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from article
+    where aid = #{aid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.zheng.sand.article.entity.Article">
+    insert into article (aid, user_id, title, 
+      page_view, praise_point, comment_num, 
+      sub_time, update_time, content
+      )
+    values (#{aid,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{pageView,jdbcType=INTEGER}, #{praisePoint,jdbcType=INTEGER}, #{commentNum,jdbcType=INTEGER}, 
+      #{subTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.zheng.sand.article.entity.Article">
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        aid,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="pageView != null">
+        page_view,
+      </if>
+      <if test="praisePoint != null">
+        praise_point,
+      </if>
+      <if test="commentNum != null">
+        comment_num,
+      </if>
+      <if test="subTime != null">
+        sub_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        #{aid,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="pageView != null">
+        #{pageView,jdbcType=INTEGER},
+      </if>
+      <if test="praisePoint != null">
+        #{praisePoint,jdbcType=INTEGER},
+      </if>
+      <if test="commentNum != null">
+        #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="subTime != null">
+        #{subTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zheng.sand.article.entity.Article">
+    update article
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="pageView != null">
+        page_view = #{pageView,jdbcType=INTEGER},
+      </if>
+      <if test="praisePoint != null">
+        praise_point = #{praisePoint,jdbcType=INTEGER},
+      </if>
+      <if test="commentNum != null">
+        comment_num = #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="subTime != null">
+        sub_time = #{subTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.zheng.sand.article.entity.Article">
+    update article
+    set user_id = #{userId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      page_view = #{pageView,jdbcType=INTEGER},
+      praise_point = #{praisePoint,jdbcType=INTEGER},
+      comment_num = #{commentNum,jdbcType=INTEGER},
+      sub_time = #{subTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where aid = #{aid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zheng.sand.article.entity.Article">
+    update article
+    set user_id = #{userId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      page_view = #{pageView,jdbcType=INTEGER},
+      praise_point = #{praisePoint,jdbcType=INTEGER},
+      comment_num = #{commentNum,jdbcType=INTEGER},
+      sub_time = #{subTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where aid = #{aid,jdbcType=VARCHAR}
+  </update>
+</mapper>
