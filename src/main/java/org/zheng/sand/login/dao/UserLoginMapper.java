@@ -1,7 +1,9 @@
 package org.zheng.sand.login.dao;
 
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import org.zheng.sand.login.entity.UserLogin;
-
+@Repository
 public interface UserLoginMapper {
     int deleteByPrimaryKey(String uid);
 
@@ -14,4 +16,6 @@ public interface UserLoginMapper {
     int updateByPrimaryKeySelective(UserLogin record);
 
     int updateByPrimaryKey(UserLogin record);
+
+    int loginVerify(@Param("username")String username,@Param("password")String password);
 }

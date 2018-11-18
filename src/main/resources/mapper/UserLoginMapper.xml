@@ -10,6 +10,9 @@
   <sql id="Base_Column_List">
     uid, uname, passwd, info_id
   </sql>
+  <select id="loginVerify" parameterType="java.lang.String" resultType="int">
+    select uid FROM user_login where uname = #{username} and passwd = #{password}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
