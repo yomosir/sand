@@ -1,5 +1,7 @@
 package org.zheng.sand.login.service;
 
+import org.zheng.sand.login.entity.UserLogin;
+
 public interface LoginService {
-    public boolean login(String username,String password);
+    public boolean login(UserLogin userLogin);
 }
