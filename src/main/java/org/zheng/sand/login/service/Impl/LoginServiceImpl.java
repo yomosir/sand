@@ -20,4 +20,9 @@ public class LoginServiceImpl implements LoginService {
             return false;
         }
     }
+
+    @Override
+    public int addUser(UserLogin userLogin) {
+        return userLoginMapper.insertSelective(userLogin);
+    }
 }

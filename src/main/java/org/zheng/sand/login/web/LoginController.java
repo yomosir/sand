@@ -18,7 +18,9 @@ import org.zheng.sand.login.service.LoginService;
 @RequestMapping("/admin")
 public class LoginController {
     @Autowired
-    public LoginService loginService;
+    private LoginService loginService;
+    private static final String LOGINERRORCODE="-1";
+    private static final String SUCCESSCODE = "0";
 
     @RequestMapping(value = "/login",method = RequestMethod.PUT)
     public String login(@RequestParam String username,@RequestParam String password){
@@ -28,13 +30,13 @@ public class LoginController {
         userLogin.setPasswd(password);
         boolean res = loginService.login(userLogin);
         if(res){
-            response.setData("login success");
-            response.setErr_code("0");
-            response.setErr_msg("ok");
+            response.setData("");
+            response.setCode(SUCCESSCODE);
+            response.setMsg("ok");
         }else{
-            response.setData("login failed");
-            response.setErr_code("-1");
-            response.setErr_msg("error");
+            response.setData("");
+            response.setCode(LOGINERRORCODE);
+            response.setMsg("error");
         }
         return JSONObject.toJSONString(response);
     }
