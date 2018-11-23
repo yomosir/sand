@@ -10,7 +10,6 @@ public class Response implements Serializable {
     private static final long serialVersionUID = 6423083342437876060L;
 
     public String data;
-    public String err_code;
 
     public String getData() {
         return data;
@@ -20,30 +19,31 @@ public class Response implements Serializable {
         this.data = data;
     }
 
-    public String getErr_code() {
-        return err_code;
+    public String getCode() {
+        return code;
     }
 
-    public void setErr_code(String err_code) {
-        this.err_code = err_code;
+    public void setCode(String code) {
+        this.code = code;
     }
-
-    public String getErr_msg() {
-        return err_msg;
-    }
-
-    public void setErr_msg(String err_msg) {
-        this.err_msg = err_msg;
-    }
-
-    public String err_msg;
 
     @Override
     public String toString() {
         return "Response{" +
                 "data='" + data + '\'' +
-                ", err_code='" + err_code + '\'' +
-                ", err_msg='" + err_msg + '\'' +
+                ", code='" + code + '\'' +
+                ", msg='" + msg + '\'' +
                 '}';
     }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String code;
+    public String msg;
 }
