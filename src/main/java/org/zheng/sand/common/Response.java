@@ -1,6 +1,8 @@
 package org.zheng.sand.common;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 封装返回结果为json的类，格式为{data:"",err_code:"",err_msg:""}
@@ -36,14 +38,14 @@ public class Response implements Serializable {
                 '}';
     }
 
-    public String getMsg() {
+    public List<String> getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public void setMsg(List<String> msg) {
         this.msg = msg;
     }
 
     public String code;
-    public String msg;
+    public List<String> msg;
 }
