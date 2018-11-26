@@ -17,4 +17,6 @@ public interface UserLoginMapper {
     int updateByPrimaryKey(UserLogin record);
 
     Integer loginVerify(UserLogin userLogin);
+
+    int deleteByInfoId(String infoId);
 }

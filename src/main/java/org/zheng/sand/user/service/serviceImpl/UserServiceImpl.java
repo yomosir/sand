@@ -20,4 +20,14 @@ public class UserServiceImpl implements UserService {
     public int addUserInfo(UserInfo userInfo) {
         return userInfoMapper.insertSelective(userInfo);
     }
+
+    @Override
+    public int deleteUserInfo(String id) {
+        return userInfoMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateUserInfo(UserInfo userInfo) {
+       return userInfoMapper.updateByPrimaryKeySelective(userInfo);
+    }
 }

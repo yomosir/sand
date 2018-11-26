@@ -12,6 +12,11 @@ public class LoginServiceImpl implements LoginService {
     private UserLoginMapper userLoginMapper;
 
     @Override
+    public int deleteUserLogin(String infoId) {
+        return userLoginMapper.deleteByInfoId(infoId);
+    }
+
+    @Override
     public boolean login(UserLogin userLogin) {
         Integer result = userLoginMapper.loginVerify(userLogin);
         if(result == 1){

@@ -6,4 +6,6 @@ public interface LoginService {
     public boolean login(UserLogin userLogin);
 
     public int addUser(UserLogin userLogin);
+
+    public int deleteUserLogin(String infoId);
 }

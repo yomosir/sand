@@ -82,4 +82,8 @@
       info_id = #{infoId,jdbcType=VARCHAR}
     where uid = #{uid,jdbcType=VARCHAR}
   </update>
+  <delete id="deleteByInfoId" parameterType="java.lang.String">
+    delete from user_login
+    where infoId = #{infoId,jdbcType=VARCHAR}
+  </delete>
 </mapper>
