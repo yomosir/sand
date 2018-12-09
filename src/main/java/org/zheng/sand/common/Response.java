@@ -7,45 +7,42 @@ import java.util.List;
 /**
  * 封装返回结果为json的类，格式为{data:"",err_code:"",err_msg:""}
  */
-public class Response implements Serializable {
+/**
+ * http请求返回的最外层对象
+ * Created by wzh-zhua on 2018/10/1.
+ */
+public class Response<T> {
+    /** 错误码. */
+    private Integer code;
 
-    private static final long serialVersionUID = 6423083342437876060L;
+    /** 提示信息. */
+    private String msg;
 
-    public String data;
+    /** 具体的内容. */
+    private T data;
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
-    @Override
-    public String toString() {
-        return "Response{" +
-                "data='" + data + '\'' +
-                ", code='" + code + '\'' +
-                ", msg='" + msg + '\'' +
-                '}';
-    }
-
-    public List<String> getMsg() {
+    public String getMsg() {
         return msg;
     }
 
-    public void setMsg(List<String> msg) {
+    public void setMsg(String msg) {
         this.msg = msg;
     }
 
-    public String code;
-    public List<String> msg;
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
 }
