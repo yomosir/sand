@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.zheng.sand.common.Md5Encryption;
 import org.zheng.sand.common.Response;
+import org.zheng.sand.common.ResponseUtil;
 import org.zheng.sand.login.entity.UserLogin;
 import org.zheng.sand.login.service.LoginService;
 import org.zheng.sand.user.entity.UserInfo;
@@ -25,18 +26,18 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/admin/user")
 public class UserController {
-    private static final String ADDUSERERRORCODEFAILEDCODE  =   "-2";
-    private static final String UPDATEUSERINFOFAILEDCODE    =   "-3";
-    private static final String SUCCESSCODE                 =   "0";
-    private static final String DELETEUSERLOGINFAILEDCODE   =   "-4";
-    private static final String DELETEUSERINFOFAILEDCODE    =   "-5";
+    private static final int ADDUSERINFOERRORCODE  =   1002;
+    private static final int ADDUSERERRORCODE  =   1006;
+    private static final int UPDATEUSERINFOFAILEDCODE    =   1003;
+    private static final int DELETEUSERLOGINFAILEDCODE   =   1004;
+    private static final int DELETEUSERINFOFAILEDCODE    =   1005;
     @Autowired
     private UserService userService;
     @Autowired
     private LoginService loginService;
 
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)
-    public String addUser(UserInfo userInfo, UserLogin userLogin) {
+    public Response addUser(UserInfo userInfo, UserLogin userLogin) {
         /* 设置login的id主键和info的id主键 */
         String info_id = UUID.randomUUID().toString();
         String login_id = UUID.randomUUID().toString();
@@ -51,58 +52,39 @@ public class UserController {
         int login_code = 0;
         int infoLine = userService.addUserInfo(userInfo);
         if (infoLine == 0) {
-            msg.add("add user info failed");
-            info_code = -1;
+            return ResponseUtil.error(ADDUSERINFOERRORCODE,"add user info failed");
         }
         int loginLine = loginService.addUser(userLogin);
         if (loginLine == 0) {
-            msg.add("add user info failed");
-            login_code = -1;
+            return ResponseUtil.error(ADDUSERERRORCODE,"add user failed");
         }
-
-        if(info_code == -1 || login_code == -1) {
-            response.setCode(ADDUSERERRORCODEFAILEDCODE);
-            response.setMsg(msg);
-        }else{
-            response.setCode(SUCCESSCODE);
-            response.setMsg(msg);
-        }
-        return JSON.toJSONString(response);
+        return ResponseUtil.success();
     }
 
     @RequestMapping(value = "/updateUserInfo")
-    public String updateUserInfo(UserInfo userInfo){
+    public Response updateUserInfo(UserInfo userInfo){
         Response response = new Response();
         int lines = userService.updateUserInfo(userInfo);
         if (lines == 0){
-            response.setCode(UPDATEUSERINFOFAILEDCODE);
-            response.setMsg(Collections.singletonList("update user info failed :("));
+           return ResponseUtil.error(UPDATEUSERINFOFAILEDCODE,"update user info failed :(");
         }else{
-            response.setCode(SUCCESSCODE);
-            response.setMsg(Collections.singletonList("update user info success :)"));
+            return ResponseUtil.success();
         }
-        return JSON.toJSONString(response);
     }
 
-    public String deleteUser(UserInfo userInfo){
+    public Response deleteUser(UserInfo userInfo){
         Response response = new Response();
         /* 先获取info id，以便于稍后删除登录信息 */
         String info_id = userInfo.getUiId();
         /* 先删除login，再删除info相关信息 */
         int lines = loginService.deleteUserLogin(info_id);
         if(lines == 0){
-            response.setCode(DELETEUSERLOGINFAILEDCODE);
-            response.setMsg(Collections.singletonList("delete user login failed :("));
-            return JSON.toJSONString(response);
+            return ResponseUtil.error(DELETEUSERLOGINFAILEDCODE,"delete user login failed :(");
         }
         lines = userService.deleteUserInfo(info_id);
         if(lines == 0){
-            response.setCode(DELETEUSERINFOFAILEDCODE);
-            response.setMsg(Collections.singletonList("delete user info failed :("));
-            return JSON.toJSONString(response);
+            return ResponseUtil.error(DELETEUSERINFOFAILEDCODE,"delete user info failed :(");
         }
-        response.setCode(SUCCESSCODE);
-        response.setMsg(Collections.singletonList("delete user success :("));
-        return JSON.toJSONString(response);
+        return ResponseUtil.success();
     }
 }

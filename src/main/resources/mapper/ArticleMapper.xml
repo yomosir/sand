@@ -10,12 +10,14 @@
     <result column="comment_num" jdbcType="INTEGER" property="commentNum" />
     <result column="sub_time" jdbcType="TIMESTAMP" property="subTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.zheng.sand.article.entity.Article">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Base_Column_List">
-    aid, user_id, title, page_view, praise_point, comment_num, sub_time, update_time
+    aid, user_id, title, page_view, praise_point, comment_num, sub_time, update_time, 
+    status
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -35,12 +37,12 @@
   <insert id="insert" parameterType="org.zheng.sand.article.entity.Article">
     insert into article (aid, user_id, title, 
       page_view, praise_point, comment_num, 
-      sub_time, update_time, content
-      )
+      sub_time, update_time, status, 
+      content)
     values (#{aid,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
       #{pageView,jdbcType=INTEGER}, #{praisePoint,jdbcType=INTEGER}, #{commentNum,jdbcType=INTEGER}, 
-      #{subTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
-      )
+      #{subTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.zheng.sand.article.entity.Article">
     insert into article
@@ -68,6 +70,9 @@
       </if>
       <if test="updateTime != null">
         update_time,
+      </if>
+      <if test="status != null">
+        status,
       </if>
       <if test="content != null">
         content,
@@ -98,6 +103,9 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
       <if test="content != null">
         #{content,jdbcType=LONGVARCHAR},
       </if>
@@ -127,6 +135,9 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
       <if test="content != null">
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
@@ -142,6 +153,7 @@
       comment_num = #{commentNum,jdbcType=INTEGER},
       sub_time = #{subTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
       content = #{content,jdbcType=LONGVARCHAR}
     where aid = #{aid,jdbcType=VARCHAR}
   </update>
@@ -153,7 +165,8 @@
       praise_point = #{praisePoint,jdbcType=INTEGER},
       comment_num = #{commentNum,jdbcType=INTEGER},
       sub_time = #{subTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
     where aid = #{aid,jdbcType=VARCHAR}
   </update>
 </mapper>

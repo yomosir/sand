@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
     <classPathEntry
-            location="D:\develop\plugins\apache-maven-3.3.9-bin\localrepo\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar" />
+            location="C:\Users\zhengguochun\.m2\repository\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar" />
     <context id="mysql" targetRuntime="MyBatis3" defaultModelType="flat">
 
         <!-- 生成的Java文件的编码 -->
@@ -29,7 +29,7 @@
                         connectionURL="jdbc:mysql://39.105.151.146:3306/sand?useUnicode=true&amp;characterEncoding=UTF-8"
                         userId="sand" password="sand@2018ZHENGguochun" />
         <!--实体生成路径 -->
-        <javaModelGenerator targetPackage="org.zheng.sand.label.entity"
+        <javaModelGenerator targetPackage="org.zheng.sand.article.entity"
                             targetProject="src/main/java" >
             <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
             <!--<property name="enableSubPackages" value="true"/>-->
@@ -38,10 +38,10 @@
         <sqlMapGenerator targetPackage="mapper"
                          targetProject="src/main/resources" />
         <!--dao层生成路径 -->
-        <javaClientGenerator targetPackage="org.zheng.sand.label.dao"
+        <javaClientGenerator targetPackage="org.zheng.sand.article.dao"
                              targetProject="src/main/java" type="XMLMAPPER" />
 
-        <table tableName="label" domainObjectName="Label" enableCountByExample="false"
+        <table tableName="article" domainObjectName="Article" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
     </context>
