@@ -1,88 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zheng.sand.category.dao.CategoryMapper">
-  <resultMap id="BaseResultMap" type="org.zheng.sand.category.entity.Category">
-    <id column="caid" jdbcType="VARCHAR" property="caid" />
-    <result column="ca_name" jdbcType="VARCHAR" property="caName" />
-    <result column="ca_detail" jdbcType="VARCHAR" property="caDetail" />
-    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="org.zheng.sand.category.entity.Category">
+        <id column="caid" jdbcType="VARCHAR" property="caid" />
+        <result column="ca_name" jdbcType="VARCHAR" property="caName" />
+        <result column="ca_detail" jdbcType="VARCHAR" property="caDetail" />
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
     caid, ca_name, ca_detail, parent_id, create_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from category
-    where caid = #{caid,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from category
+        where caid = #{caid,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from category
     where caid = #{caid,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="org.zheng.sand.category.entity.Category">
+    <insert id="insert" parameterType="org.zheng.sand.category.entity.Category">
     insert into category (caid, ca_name, ca_detail, 
       parent_id, create_time)
     values (#{caid,jdbcType=VARCHAR}, #{caName,jdbcType=VARCHAR}, #{caDetail,jdbcType=VARCHAR}, 
       #{parentId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="org.zheng.sand.category.entity.Category">
-    insert into category
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="caid != null">
-        caid,
-      </if>
-      <if test="caName != null">
-        ca_name,
-      </if>
-      <if test="caDetail != null">
-        ca_detail,
-      </if>
-      <if test="parentId != null">
-        parent_id,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="caid != null">
-        #{caid,jdbcType=VARCHAR},
-      </if>
-      <if test="caName != null">
-        #{caName,jdbcType=VARCHAR},
-      </if>
-      <if test="caDetail != null">
-        #{caDetail,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.zheng.sand.category.entity.Category">
-    update category
-    <set>
-      <if test="caName != null">
-        ca_name = #{caName,jdbcType=VARCHAR},
-      </if>
-      <if test="caDetail != null">
-        ca_detail = #{caDetail,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where caid = #{caid,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.zheng.sand.category.entity.Category">
+    <insert id="insertSelective" parameterType="org.zheng.sand.category.entity.Category">
+        insert into category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="caid != null">
+                caid,
+            </if>
+            <if test="caName != null">
+                ca_name,
+            </if>
+            <if test="caDetail != null">
+                ca_detail,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="caid != null">
+                #{caid,jdbcType=VARCHAR},
+            </if>
+            <if test="caName != null">
+                #{caName,jdbcType=VARCHAR},
+            </if>
+            <if test="caDetail != null">
+                #{caDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.zheng.sand.category.entity.Category">
+        update category
+        <set>
+            <if test="caName != null">
+                ca_name = #{caName,jdbcType=VARCHAR},
+            </if>
+            <if test="caDetail != null">
+                ca_detail = #{caDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where caid = #{caid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.zheng.sand.category.entity.Category">
     update category
     set ca_name = #{caName,jdbcType=VARCHAR},
       ca_detail = #{caDetail,jdbcType=VARCHAR},
@@ -90,4 +90,9 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where caid = #{caid,jdbcType=VARCHAR}
   </update>
+    <select id="getCategoryList" resultMap="org.zheng.sand.category.entity.Category">
+        select
+        <include refid="Base_Column_List" />
+        from category
+    </select>
 </mapper>
